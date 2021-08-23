@@ -1,13 +1,91 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+:root {
+	--primary-font: 'Source Code Pro', monospace;
+	--primary-white: #f3f3f3;
+	--dark-gray: #303842;
+	--light-gray: #3a4750;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.page-container {
+	background-color: var(--primary-white);
+	height: 100vh;
+	font-family: var(--primary-font);
+	padding-bottom: 50px;
+}
+
+.secondary-page-container {
+	width: 85%;
+}
+
+.logo-image {
+	width: 70%;
+	height: 30vh;
+}
+
+.logo-container {
+	background-color: var(--dark-gray);
+	margin-bottom: 5vh;
+}
+
+.main-page-heading {
+	overflow: hidden; /* Ensures the content is not revealed until the animation */
+	white-space: nowrap; /* Keeps the content on a single line */
+	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+	animation: typing 7s steps(40, end) infinite;
+}
+
+@keyframes typing {
+	from {
+		width: 0;
+	}
+	to {
+		width: 100%;
+	}
+}
+
+.main-page-heading-2 {
+	margin-top: 5vh;
+}
+
+.start-button {
+	margin-top: 10vh;
+	padding: 15px;
+	width: 15vw;
+	height: 10vh;
+	font-size: x-large;
+	font-weight: 900;
+	color: var(--primary-white);
+	background-color: var(--light-gray);
+	border: none;
+	border-radius: 25px;
+}
+
+.question-container {
+	width: 50vw;
+	height: 50%;
+	background-color: var(--light-gray);
+	color: var(--primary-white);
+	padding: 25px;
+	margin-top: 5vh;
+	text-align: left;
+}
+
+.score {
+	margin-top: 5vh;
+	font-size: 30px;
+	margin-bottom: 50px;
+}
+
+.submit-button {
+	margin-top: 5vh;
+	padding: 5px;
+	width: 10vw;
+	height: 5vh;
+	font-size: 24px;
+	font-weight: 900;
+	color: var(--dark-gray);
+	background-color: var(--primary-white);
+	border: none;
+	border-radius: 25px;
 }
