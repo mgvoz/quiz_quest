@@ -62,13 +62,14 @@
 }
 
 .question-container {
-	width: 50vw;
+	width: 60vw;
 	height: 50%;
 	background-color: var(--light-gray);
 	color: var(--primary-white);
 	padding: 25px;
 	margin-top: 5vh;
 	text-align: left;
+	/*display: inline block;*/
 }
 
 .score {
@@ -77,10 +78,10 @@
 	margin-bottom: 50px;
 }
 
-.submit-button {
+.check-answer-button {
 	margin-top: 5vh;
 	padding: 5px;
-	width: 10vw;
+	width: 25vw;
 	height: 5vh;
 	font-size: 24px;
 	font-weight: 900;
@@ -88,4 +89,30 @@
 	background-color: var(--primary-white);
 	border: none;
 	border-radius: 25px;
+	margin-left: 0.5vw;
+}
+
+.next-question-button {
+	margin-top: 5vh;
+	padding: 5px;
+	width: 25vw;
+	height: 5vh;
+	font-size: 24px;
+	font-weight: 900;
+	color: var(--dark-gray);
+	background-color: var(--primary-white);
+	border: none;
+	border-radius: 25px;
+	position: fixed;
+	margin-left: 5vw;
+}
+
+label {
+	margin-left: 1vw;
+}
+
+.radio-buttons {
+	height: 15px;
+	width: 15px;
+	padding-top: 3px;
 }
