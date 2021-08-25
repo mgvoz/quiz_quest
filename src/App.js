@@ -23,7 +23,7 @@ function App() {
 						</h1>
 						<h2 className='main-page-heading-2'>
 							Click the start button to begin your 15 question
-							general knowledge quiz
+							general knowledge quiz.
 						</h2>
 					</div>
 					<button

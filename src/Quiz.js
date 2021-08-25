@@ -61,25 +61,24 @@ function Quiz() {
 	};
 
 	const nextQuestion = () => {
-		for (var h = 0; h < answerChoices.length; h++) {
-			if (answerChoices[h].checked === true) {
-				setStartFireworks(false);
-				if (questionNum < 16) {
-					setQuestionNum(questionNum + 1);
-				}
-				//clear radio button selections
-				for (var j = 0; j < answerChoices.length; j++) {
-					answerChoices[j].checked = false;
-				}
-			} else {
-				alert('Must select an answer.');
+		const choicesArray = Array.from(answerChoices);
+		if (choicesArray.filter((c) => c.checked).length === 0) {
+			alert('Must select and check an answer.');
+		} else {
+			setStartFireworks(false);
+			if (questionNum < 16) {
+				setQuestionNum(questionNum + 1);
+			}
+			//clear radio button selections
+			for (var j = 0; j < answerChoices.length; j++) {
+				answerChoices[j].checked = false;
 			}
 		}
 	};
-	console.log(answerChoices);
+
 	const finalScore = (score / 15).toFixed(2).split('.')[1];
 
-	//RANDOMIZE ANSWER CHOICES, make sure one answer choice is required
+	//RANDOMIZE ANSWER CHOICES
 
 	return (
 		<div className='page-container'>
@@ -99,6 +98,11 @@ function Quiz() {
 						<h1 className='quiz-page-heading'>
 							General Knowledge Quiz
 						</h1>
+						<p className='instructions'>
+							Instructions: Read the question and select your
+							answer. You must check your answer in order to earn
+							points!
+						</p>
 						<div className='question-container'>
 							<h2>Question {questionNum}</h2>
 							<p>{questionList[questionNum]?.question}</p>
@@ -144,23 +148,24 @@ function Quiz() {
 									{questionList[questionNum]?.correct_answer}
 								</label>
 								<br />
-								<button
-									onClick={() => checkAnswer()}
-									type='button'
-									className='check-answer-button'
-								>
-									check answer
-								</button>
-
-								<button
-									onClick={() => nextQuestion()}
-									type='button'
-									className='next-question-button'
-								>
-									{questionNum === 15
-										? 'see score'
-										: 'next question'}
-								</button>
+								<div className='button-container'>
+									<button
+										onClick={() => checkAnswer()}
+										type='button'
+										className='check-answer-button'
+									>
+										check answer
+									</button>
+									<button
+										onClick={() => nextQuestion()}
+										type='button'
+										className='next-question-button'
+									>
+										{questionNum === 15
+											? 'see score'
+											: 'next question'}
+									</button>
+								</div>
 							</form>
 						</div>
 						<p className='score'>Correct answers: {score}</p>
