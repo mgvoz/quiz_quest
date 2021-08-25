@@ -51,23 +51,35 @@ function Quiz() {
 			setScore(score + 1);
 			setStartFireworks(true);
 		} else {
-			alert('Incorrect! Next question...');
+			if (questionNum === 15) {
+				alert('Incorrect! Your final score is...');
+			} else {
+				alert('Incorrect! Next question...');
+			}
 			nextQuestion();
 		}
 	};
 
 	const nextQuestion = () => {
-		setStartFireworks(false);
-		if (questionNum <= 14) {
-			setQuestionNum(questionNum + 1);
-		}
-		//clear radio button selections
-		for (var j = 0; j < answerChoices.length; j++) {
-			answerChoices[j].checked = false;
+		for (var h = 0; h < answerChoices.length; h++) {
+			if (answerChoices[h].checked === true) {
+				setStartFireworks(false);
+				if (questionNum < 16) {
+					setQuestionNum(questionNum + 1);
+				}
+				//clear radio button selections
+				for (var j = 0; j < answerChoices.length; j++) {
+					answerChoices[j].checked = false;
+				}
+			} else {
+				alert('Must select an answer.');
+			}
 		}
 	};
+	console.log(answerChoices);
+	const finalScore = (score / 15).toFixed(2).split('.')[1];
 
-	//SET UP END OF QUIZ AND SCORE PAGE, RANDOMIZE ANSWER CHOICES
+	//RANDOMIZE ANSWER CHOICES, make sure one answer choice is required
 
 	return (
 		<div className='page-container'>
@@ -79,61 +91,103 @@ function Quiz() {
 						alt='quiz_quest logo'
 					></img>
 				</div>
-				{startFireworks && (
-					<Fireworks options={options} style={style} />
-				)}
-				<h1>General Knowledge Quiz</h1>
-				<div className='question-container'>
-					<h2>Question {questionNum}</h2>
-					<p>{questionList[questionNum]?.question}</p>
-					<form>
-						{questionList[questionNum]?.incorrect_answers.map(
-							(ans, key) => {
-								return (
-									<div key={key}>
-										<input
-											name='answer-choices'
-											className='radio-buttons'
-											type='radio'
-											id={ans}
-											value={ans}
-										></input>
-										<label htmlFor={ans}>{ans}</label>
-										<br />
-									</div>
-								);
-							},
+				{questionNum <= 15 ? (
+					<>
+						{startFireworks && (
+							<Fireworks options={options} style={style} />
 						)}
-						<input
-							name='answer-choices'
-							className='radio-buttons'
-							type='radio'
-							id={questionList[questionNum]?.correct_answer}
-							value={questionList[questionNum]?.correct_answer}
-						></input>
-						<label
-							htmlFor={questionList[questionNum]?.correct_answer}
-						>
-							{questionList[questionNum]?.correct_answer}
-						</label>
-						<br />
+						<h1 className='quiz-page-heading'>
+							General Knowledge Quiz
+						</h1>
+						<div className='question-container'>
+							<h2>Question {questionNum}</h2>
+							<p>{questionList[questionNum]?.question}</p>
+							<form>
+								{questionList[
+									questionNum
+								]?.incorrect_answers.map((ans, key) => {
+									return (
+										<div key={key}>
+											<input
+												name='answer-choices'
+												className='radio-buttons'
+												type='radio'
+												id={ans}
+												value={ans}
+												required
+											></input>
+											<label htmlFor={ans}>{ans}</label>
+											<br />
+										</div>
+									);
+								})}
+								<input
+									name='answer-choices'
+									className='radio-buttons'
+									type='radio'
+									id={
+										questionList[questionNum]
+											?.correct_answer
+									}
+									value={
+										questionList[questionNum]
+											?.correct_answer
+									}
+									required
+								></input>
+								<label
+									htmlFor={
+										questionList[questionNum]
+											?.correct_answer
+									}
+								>
+									{questionList[questionNum]?.correct_answer}
+								</label>
+								<br />
+								<button
+									onClick={() => checkAnswer()}
+									type='button'
+									className='check-answer-button'
+								>
+									check answer
+								</button>
+
+								<button
+									onClick={() => nextQuestion()}
+									type='button'
+									className='next-question-button'
+								>
+									{questionNum === 15
+										? 'see score'
+										: 'next question'}
+								</button>
+							</form>
+						</div>
+						<p className='score'>Correct answers: {score}</p>
+					</>
+				) : (
+					<>
+						<h1 className='quiz-page-heading'>
+							General Knowledge Quiz
+						</h1>
+						<Fireworks options={options} style={style} />
+						<div className='question-container'>
+							<center>
+								<h2>Quiz Complete!</h2>
+								<h3>Your score:</h3>
+								<h4>{score}/15</h4>
+								<h4>{finalScore}%</h4>
+							</center>
+						</div>
 						<button
-							onClick={() => checkAnswer()}
+							onClick={() => window.location.reload()}
 							type='button'
-							className='check-answer-button'
+							className='start-over-button'
 						>
-							check answer
+							start over?
 						</button>
-						<button
-							onClick={() => nextQuestion()}
-							type='button'
-							className='next-question-button'
-						>
-							next question
-						</button>
-					</form>
-				</div>
-				<p className='score'>Correct answers: {score}</p>
+					</>
+				)}
 			</center>
 		</div>
 	);

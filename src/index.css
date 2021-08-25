@@ -29,6 +29,7 @@
 }
 
 .main-page-heading {
+	color: var(--dark-gray);
 	overflow: hidden; /* Ensures the content is not revealed until the animation */
 	white-space: nowrap; /* Keeps the content on a single line */
 	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
@@ -46,6 +47,7 @@
 
 .main-page-heading-2 {
 	margin-top: 5vh;
+	color: var(--dark-gray);
 }
 
 .start-button {
@@ -69,7 +71,8 @@
 	padding: 25px;
 	margin-top: 5vh;
 	text-align: left;
-	/*display: inline block;*/
+	overflow-wrap: break-word;
+	position: relative;
 }
 
 .score {
@@ -115,4 +118,22 @@ label {
 	height: 15px;
 	width: 15px;
 	padding-top: 3px;
+}
+
+.start-over-button {
+	margin-top: 7vh;
+	padding: 15px;
+	width: 15vw;
+	height: 10vh;
+	font-size: x-large;
+	font-weight: 900;
+	color: var(--primary-white);
+	background-color: var(--light-gray);
+	border: none;
+	border-radius: 25px;
+	position: relative;
+}
+
+.quiz-page-heading {
+	color: var(--dark-gray);
 }
