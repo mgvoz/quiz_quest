@@ -228,3 +228,8 @@ label {
 	color: var(--dark-gray);
 	width: 85vw;
 }
+
+.loading {
+	text-align: center;
+	margin-top: 20vh;
+}
