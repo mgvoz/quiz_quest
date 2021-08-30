@@ -232,4 +232,6 @@ label {
 .loading {
 	text-align: center;
 	margin-top: 20vh;
+	width: 85vw;
+	overflow-wrap: break-word;
 }

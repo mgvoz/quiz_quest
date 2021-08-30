@@ -80,33 +80,40 @@ function Quiz() {
 
 	const checkAnswer = (e) => {
 		e.preventDefault();
-		for (var i = 0; i < answerChoices.length; i++) {
-			if (answerChoices[i].checked) {
-				selected = answerChoices[i].value;
-			}
-		}
-		if (selected === questionList[questionNum]?.correct_answer) {
-			setScore(score + 1);
-			setStartFireworks(true);
+		const choicesArray = Array.from(answerChoices);
+		if (choicesArray.filter((c) => c.checked).length === 0) {
+			alert('Must select and check an answer.');
 		} else {
-			if (questionNum === 15) {
-				alert(
-					`Incorrect! The correct answer was ${he.decode(
-						questionList[questionNum]?.correct_answer,
-					)}. Your final score is...`,
-				);
-			} else {
-				alert(
-					`Incorrect! The correct answer was ${he.decode(
-						questionList[questionNum]?.correct_answer,
-					)}. Next question...`,
-				);
+			document.getElementById('check-answer').disabled = true;
+			for (var i = 0; i < answerChoices.length; i++) {
+				if (answerChoices[i].checked) {
+					selected = answerChoices[i].value;
+				}
 			}
-			nextQuestion();
+			if (selected === questionList[questionNum]?.correct_answer) {
+				setScore(score + 1);
+				setStartFireworks(true);
+			} else {
+				if (questionNum === 15) {
+					alert(
+						`Incorrect! The correct answer was ${he.decode(
+							questionList[questionNum]?.correct_answer,
+						)}. Your final score is...`,
+					);
+				} else {
+					alert(
+						`Incorrect! The correct answer was ${he.decode(
+							questionList[questionNum]?.correct_answer,
+						)}. Next question...`,
+					);
+				}
+				nextQuestion();
+			}
 		}
 	};
 
 	const nextQuestion = () => {
+		document.getElementById('check-answer').disabled = false;
 		const choicesArray = Array.from(answerChoices);
 		if (choicesArray.filter((c) => c.checked).length === 0) {
 			alert('Must select and check an answer.');
@@ -192,6 +199,7 @@ function Quiz() {
 												onClick={(e) => checkAnswer(e)}
 												type='button'
 												className='check-answer-button'
+												id='check-answer'
 											>
 												check answer
 											</button>
