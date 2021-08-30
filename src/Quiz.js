@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import logo from './banner.png';
 import { Fireworks } from 'fireworks-js/dist/react';
+var he = require('he');
 
 function Quiz() {
 	//set varibles
@@ -33,13 +34,16 @@ function Quiz() {
 			.then((res) => res.json())
 			.then((data) => {
 				setQuestionList(data.results);
-				const questions = data.results.map((q) => `${q.question};`);
+				const questions = data.results.map(
+					(q) => `${he.decode(q.question)};`,
+				);
+
 				const answers = data.results.map(
 					(a) =>
 						`${randomize(
 							Array.of(
-								a.incorrect_answers,
-								a.correct_answer,
+								a.incorrect_answers.map((a) => he.decode(a)),
+								he.decode(a.correct_answer),
 							).flat(),
 						)}*`,
 				);
@@ -86,10 +90,16 @@ function Quiz() {
 			setStartFireworks(true);
 		} else {
 			if (questionNum === 15) {
-				alert('Incorrect! Your final score is...');
+				alert(
+					`Incorrect! The correct answer was ${he.decode(
+						questionList[questionNum]?.correct_answer,
+					)}. Your final score is...`,
+				);
 			} else {
 				alert(
-					`Incorrect! The correct answer was ${questionList[questionNum]?.correct_answer}. Next question...`,
+					`Incorrect! The correct answer was ${he.decode(
+						questionList[questionNum]?.correct_answer,
+					)}. Next question...`,
 				);
 			}
 			nextQuestion();
@@ -144,7 +154,14 @@ function Quiz() {
 								</p>
 								<div className='question-container'>
 									<h2>Question {questionNum}</h2>
-									<p>{questions[questionNum]}</p>
+									<p>
+										{questions[questionNum].includes(';')
+											? questions[questionNum].replace(
+													';',
+													'',
+											  )
+											: questions[questionNum]}
+									</p>
 									<form>
 										{answers[questionNum]
 											.split(',')
@@ -159,7 +176,12 @@ function Quiz() {
 															value={ans}
 														></input>
 														<label htmlFor={ans}>
-															{ans}
+															{ans.includes('*')
+																? ans.replace(
+																		'*',
+																		'',
+																  )
+																: ans}
 														</label>
 														<br />
 													</div>
